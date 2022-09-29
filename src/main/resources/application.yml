@@ -1,0 +1,18 @@
+spring:
+    profiles:
+        active: ${SERVER_PROFILE:dev}
+
+datasource:
+    default-source:
+        url: ${DB_URL:`jdbc:postgresql://localhost:5432/questionbucket`}
+        username: ${DB_USER:postgres}
+        password: ${DB_PASSWORD:postgres}
+        driverClassName: ${DB_DRIVER:org.postgresql.Driver}
+        hikari:
+            maximum-pool-size: 10
+
+pincode:
+    config:
+        url: ${PINCODE_URL:https://api.postalpincode.in}
+        conn-timeout: ${PINCODE_CONN_TIMEOUT:5000}
+        max-total: ${PINCODE_MAX_TOTAL:20}
