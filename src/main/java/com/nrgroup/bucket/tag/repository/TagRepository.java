@@ -35,7 +35,7 @@ public class TagRepository {
                 }
 
             }
-            ResultBearing result = batch.executeAndReturnGeneratedKeys("id", "tag");
+            ResultBearing result = batch.executePreparedBatch("id", "tag");
             result.mapToBean(IdTagRequest.class).forEach(resposne::add);
             return resposne;
         } catch (Exception e) {
