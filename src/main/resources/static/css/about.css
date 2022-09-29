@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Koh+Santepheap&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,600;1,200;1,400;1,600&display=swap');
+
+* {
+    margin: 0;
+}
+
+.sec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10vh 10vw;
+}
+
+.content {
+    width: 40%;
+}
+
+.content-title {
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: xx-large;
+    margin-bottom: 20px;
+}
+
+.content-body {
+    font-family: 'Work Sans';
+}

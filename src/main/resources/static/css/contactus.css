@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Jacques+Francois&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+}
+
+main {
+    margin: 6vh 10vh;
+}
+
+.container {
+    display: flex;
+    height: 120vh;
+}
+
+.c-left {
+    width: 55%;
+    background-color: #D9D9D9;
+}
+
+.cl-title {
+    margin: 10vh;
+    font-size: 55px;
+    margin-left: 10vw;
+}
+
+.c-right {
+    width: 45%;
+    background-color: black;
+}
+
+.cr-title {
+    color: white;
+    text-align: center;
+    font-size: 45px;
+    margin-top: 10vh;
+    font-family: "Jacques Francois";
+}
+
+.c-right > form {
+    display: grid;
+    gap: 4vh;
+    margin-top: 10vh;
+}
+
+.crf-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.crf-block {
+    display: grid;
+    color: white;
+}
+
+.crf-block > input {
+    color: white;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+}
+
+.msg-block {
+    margin: 0 10vh;
+}
+
+.msg-block > textarea {
+    padding: 2vh;
+    margin-top: 2vh;
+    outline: none;
+    border: none;
+    opacity: 0.9;
+    border-radius: 7px;
+}
+
+
+.btn {
+    margin-left: 10vh;
+    width: 20%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Poppins';
+    color: white;
+    font-size: large;
+}
+
+.crf-sec-a {
+    margin: 10vh;
+}
+
+.sec-a-title {
+    color: #6C6C6C;
+    font-size: large;
+    font-family: 'Poppins';
+}
+
+.sec-a-email {
+    color: white;
+    font-family: 'Poppins';
+    font-size: x-large;
+}

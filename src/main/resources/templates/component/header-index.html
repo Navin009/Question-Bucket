@@ -1,0 +1,49 @@
+<header th:fragment="header-index" sec:authorize="isAnonymous()">
+    <img src="/images/logo.svg" alt="Question Bucket" onclick="location.href='/'" class="header-logo">
+    <button class="header-nav-toggle" id="header-nav-toggle" aria-expanded="false" hidden></button>
+    <div class="header-nav" id="header-nav" aria-hidden="true">
+        <a href="/">Home</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contactus">Contact&nbsp;Us</a>
+        <a href="/about">About</a>
+        <a class="header-user-btn" href="/login">
+            <img class="arrow-ico" src="/images/right_arrow.png" alt="">LOGIN
+        </a>
+        <a class="header-user-btn" href="/register">
+            <img class="arrow-ico" src="/images/right_arrow.png" alt="">SIGN&nbsp;UP
+        </a>
+    </div>
+    <link rel="preload" href="/css/component/header.unsec.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <script defer src="/js/header.js"></script>
+</header>
+
+
+<header th:fragment="header-index" sec:authorize="isAuthenticated()">
+    <button class="header-nav-toggle" id="header-nav-toggle" aria-expanded="false" hidden></button>
+    <img src="/images/logo.svg" alt="logo" onclick="location.href='/'" class="header-logo">
+    <div class="header-nav" id="header-nav" aria-hidden="true">
+        <a href="/">Home</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contactus">Contact&nbsp;Us</a>
+        <a href="/about">About</a>
+        <a href="/create-question-answer">Ask&nbsp;Question</a>
+    </div>
+    <div class="user-nav">
+        <button class="user-btn" id="user-btn" onclick="showUserOptions()"
+            sec:authentication="principal.user.firstName"></button>
+        <div class="user-nav-dropdown" id="user-nav-dropdown">
+            <div class="und-container" id="und-container">
+                <img src="/images/user.png" alt="">
+                <span sec:authentication="principal.user.email"></span>
+                <button class="user-preferences-btn" onclick="alert(`Redirect to Preferences`)"
+                    disabled>Prefrences</button>
+                <button class="user-signout-btn" onclick="location.href='/logout'">Sign Out</button>
+            </div>
+        </div>
+    </div>
+    <script defer src="/js/useroptions.js"></script>
+    <script defer src="/js/header.js"></script>
+    <link rel="preload" href="/css/component/header-index.sec.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+</header>

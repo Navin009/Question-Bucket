@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with us, email us.">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/css/contactus.css">
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body>
+    <div th:replace="component/header-index :: header"></div>
+    <main>
+        <div class="container">
+            <div class="c-left">
+                <div class="cl-title">We’d love to <br> hear from you</div>
+            </div>
+            <div class="c-right">
+                <div class="cr-title">CONATCT US</div>
+                <form action="#">
+                    <div class="crf-group">
+                        <div class="crf-block"><span>First Name</span> <input type="text" name="firstname" id=""></div>
+                        <div class="crf-block"><span>Last Name</span> <input type="text" name="lastname" id=""></div>
+                    </div>
+                    <div class="crf-group">
+                        <div class="crf-block"><span>Email</span> <input type="email" name="email" id=""></div>
+                        <div class="crf-block"><span>Mobile No.</span> <input type="tel" name="mobileno" id=""></div>
+                    </div>
+                    <div class="crf-block msg-block">
+                        <span>Message</span>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <button class="btn" type="submit">Submit&nbsp;-&gt;</button>
+                </form>
+                <div class="crf-sec-a">
+                    <div class="sec-a-title">E-Mail US</div>
+                    <span class="sec-a-email">hello@questionbucket.com</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="component/footer :: footer"></div>
+</body>
+
+</html>

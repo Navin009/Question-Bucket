@@ -1,0 +1,50 @@
+footer {
+    height: 440px;
+    background-color: black;
+}
+
+.footer-container {
+    padding: 5vh;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.fct-block {
+    padding-bottom: 2vh;
+}
+
+.fcc-block,
+.fct-block {
+    color: white;
+    font-family: 'Inter';
+    text-transform: uppercase;
+}
+
+.fct-title {
+    font-weight: bolder;
+    padding-bottom: 2vh;
+}
+
+.fcc-content {
+    display: grid;
+    gap: 1vh;
+}
+
+.fcc-content:last-child {
+    padding-bottom: 3vh;
+}
+
+@media screen and (max-width: 768px) {
+    footer {
+        height: auto;
+    }
+
+    .footer-container {
+        grid-auto-flow: row;
+    }
+}
+
+footer  a {
+    color: white;
+    text-decoration: none;
+}

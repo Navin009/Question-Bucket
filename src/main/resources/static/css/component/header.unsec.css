@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+
+header {
+	display: flex;
+	align-items: center;
+	padding: 3vh;
+	justify-content: space-between;
+}
+
+.header-logo {
+	height: 30px;
+}
+
+.header-nav {
+	display: flex;
+	align-items: center;
+}
+
+.header-nav > a {
+	margin: 0 1vw;
+	font-family: 'Inter';
+	text-transform: uppercase;
+	font-weight: 300;
+	font-size: 14px;
+	cursor: pointer;
+	color: black;
+	text-decoration: none;
+}
+
+.header-nav-user-option {
+	display: flex;
+}
+
+.header-user-btn {
+	border: none;
+	outline: none;
+	font-family: "Inter";
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+}
+
+.arrow-ico {
+	height: 16px;
+	padding-right: 0.8vw;
+}
+
+@media screen and (max-width: 786px) {
+	.header-logo {
+		height: 5vw;
+	}
+
+	.header-nav-toggle {
+		display: block;
+		position: absolute;
+		z-index: 1000;
+		right: 3vw;
+		background-color: transparent;
+		background-size: cover;
+		width: 6vw;
+		aspect-ratio: 1;
+		border: none;
+		outline: none;
+	}
+
+	.header-nav-toggle[aria-expanded="false"] {
+		background-image: url("/images/menu.svg");
+	}
+
+
+	.header-nav-toggle[aria-expanded="true"] {
+		background-image: url("/images/close.svg");
+	}
+
+	.header-nav > a {
+		font-size: 22px;
+	}
+
+	.header-nav[aria-hidden="false"] {
+		padding-top: 10vh;
+		padding-left: 17vw;
+		position: fixed;
+		z-index: 10;
+		inset: 0;
+		gap: 3vh;
+		align-items: flex-start;
+		flex-direction: column;
+		background-color: rgb(240 240 240);
+		backdrop-filter: blur(5px);
+	}
+
+	.header-nav[aria-hidden="true"] {
+		display: none;
+	}
+}

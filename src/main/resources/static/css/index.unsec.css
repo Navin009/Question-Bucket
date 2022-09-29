@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+
+body {
+	margin: 0;
+}
+
+.section-a {
+	margin-top: 5vh;
+	height: inherit;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+}
+
+.section-a > img {
+	margin: 5vh;
+}
+
+.sec-a-side {
+	display: grid;
+	justify-content: center;
+}
+
+.sec-a-side > span {
+	font-family: "Poppins";
+	font-size: 56px;
+}
+
+.sec-a-search-box {
+	position: relative;
+	display: flex;
+	align-items: center;
+	border-radius: 999px;
+	border: 1px solid rgb(144, 144, 144);
+	margin: 2vh 5vw 30vh 5vw;
+	padding: 0 1vw;
+	justify-content: space-between;
+	overflow: hidden;
+	background: white;
+}
+
+.sec-a-search-box > input {
+	font-family: "Inter";
+	font-size: 27px;
+	width: 80%;
+	border: none;
+	outline: none;
+	justify-self: center;
+	padding: 7px 1vw;
+	background: transparent;
+}
+
+.sec-a-search-box > img {
+	font-size: small;
+}
+
+.search-icon {
+	height: 30px;
+}
+
+
+@media (max-width: 768px) {
+	.section-a {
+		grid-template-columns: 1fr;
+		position: relative;
+	}
+
+	.sec-a-side > span {
+		padding-left: 2vw;
+		font-size: 8vw;
+		padding-bottom: 5vw;
+	}
+
+	.sa-bg {
+		position: absolute;
+		z-index: -1;
+		width: 80vw;
+		top: 0;
+		content: url("/images/working_women_mob.png");
+	}
+}

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Ms+Madi&family=Mukta:wght@400;700&display=swap');
+
+* {
+	margin: 0;
+}
+
+main {
+	display: flex;
+	padding: 2vh 10vw;
+}
+
+article {
+	width: 75%;
+	margin-right: 2%;
+}
+
+aside {
+	width: 25%;
+}
+
+.search-question {
+	background-color: rgba(0, 0, 0, 0.019);
+	padding: 2vh;
+	margin-bottom: 2vh;
+	margin-right: 1vw;
+	font-family: "Mukta";
+	display: flex;
+}
+
+.search-question:hover {
+	background-color: rgba(0, 0, 0, 0.049);
+}
+
+.search-question span {
+	font-weight: bold;
+	padding-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+	main {
+		flex-direction: column;
+	}
+
+	article {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	aside {
+		width: 100%;
+	}
+
+}

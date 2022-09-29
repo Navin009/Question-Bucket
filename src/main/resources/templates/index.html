@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Question Bucket is a platform for asking a question and finding the best answer to your question. You can also create and update questions published by you and others.">
+    <link rel="stylesheet" href="/css/index.unsec.css">
+    <title>Question Bucket</title>
+    <link rel="icon" href="/favicon.ico">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6DYNGELR0"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R6DYNGELR0');
+    </script>
+</head>
+
+<body>
+    <div th:replace="component/header-index :: header"></div>
+    <div class="container">
+        <div class="section-a">
+            <img class="sa-bg" src="/images/working_women.svg" alt="Working Women">
+            <div class="sec-a-side">
+                <span>Asking<br>Question is the first<br>Way to begin change.</span>
+                <form action="/search" class="sec-a-search-box">
+                    <input type="text" name="q" placeholder="TYPE HERE">
+                    <img class="search-icon" src="/images/search.svg" alt="search" onclick="submit()">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="component/footer :: footer"></div>
+    <script defer src="/js/index.js"></script>
+</body>
+
+</html>

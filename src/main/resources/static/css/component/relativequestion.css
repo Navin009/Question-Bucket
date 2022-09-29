@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
+.relative-question-block {
+	border: 1px solid rgb(226, 226, 226);
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.308);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-bottom: 1vh;
+}
+
+.relative-question-title {
+	border-bottom: 1px solid rgb(226, 226, 226);
+	padding: 2vh;
+	text-transform: uppercase;
+	font-family: "Inconsolata";
+}
+
+.related-question {
+	padding: 2vh;
+	border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+@media (max-width: 600px) {
+	.relative-question-block {
+		width: 100%;
+	}
+}

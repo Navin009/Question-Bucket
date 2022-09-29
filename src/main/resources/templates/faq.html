@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Here are some questions which will mostly ask by others.">
+    <title>FAQ</title>
+    <link rel="stylesheet" href="/css/faq.css">
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body>
+    <div th:replace="component/header-index :: header"></div>
+    <div class="container">
+        <img class="faq-img" src="/images/faq.jpg" alt="image" height="300px">
+        <div class="title">Frequently Asked Questions</div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>How do I get Started?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">First you have to login and register yourself in Question Bucket and
+                then start questioning</div>
+        </div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>Can I try Question Bucket for free?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">Yes,you can try Question Bucket for free without any type of payment
+                or hidden payment</div>
+        </div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>Can I change email address or mobile number?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">Yes, you can change email /edit your email address and mobile number.
+            </div>
+        </div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>How is Question Bucket different from other?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">Question Bucket is different from others because this website provide
+                you a feature of editing and update questions by anyone.</div>
+        </div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>How can I clear my doubts?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">You can clear your doubts by asking questions.</div>
+        </div>
+        <div class="block">
+            <div class="question" aria-expanded="false">
+                <span>Do you provide customer support?</span>
+                <img src="/images/arrow.png" alt="arrow" onclick="showAnswer(this)">
+            </div>
+            <div class="answer" aria-hidden="true">Yes, you can communicate with us on email
+                via:hello@questionbucket.com</div>
+        </div>
+    </div>
+    <div th:replace="component/footer :: footer"></div>
+    <script src="/js/faq.js"></script>
+</body>
+
+</html>

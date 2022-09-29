@@ -11,6 +11,38 @@ datasource:
         hikari:
             maximum-pool-size: 10
 
+server:
+    port: ${SERVER_PORT:8080}
+    servlet:
+        session:
+            cookie:
+                name: csid
+                secure: true
+                same-site: strict
+
+mail:
+    host: ${AWS_SES_HOST:email-smtp.ap-south-1.amazonaws.com}
+    port: 587
+    access-id: ${AWS_ACCESS_KEY:AWSACCESSSKEY}
+    secret-key: ${AWS_SECRET_KEY:AWSSECRETKEY}
+    email-from: "Question Bucket <no-reply@questionbucket.com>"
+    template:
+        register:
+            otp: registration_otp_template
+            welcome: registration_welcome_template
+        forgot:
+            otp: forgot_password_otp_template
+        question-answred: question_answered_template
+        question-update: question_update_template
+        answer-update: answer_update_template
+
+jwt:
+    secret: ${JWT_SECRET:jwtsecret}
+    expiration: ${JWT_EXPIRATION:10800} #0 seconds 60*60*24 = (86400s) 1 day, default is 10800s (3 hours)
+
+log:
+    file-path: ${LOG_PATH:../logs}
+
 pincode:
     config:
         url: ${PINCODE_URL:https://api.postalpincode.in}

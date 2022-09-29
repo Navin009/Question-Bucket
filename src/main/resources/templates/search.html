@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${query}"></title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/search.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387666660240497"
+        crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6DYNGELR0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R6DYNGELR0');
+    </script>
+</head>
+
+<body>
+    <div th:replace="component/header :: header" />
+    <main>
+        <article>
+            <div class="search-list">
+                <div class="search-box">
+                    <div class="search-question" th:each="question : ${questions}" th:inline="text"
+                        th:id="${question.id}" onclick="questionRedirect(this.id)">
+                        <span>Ques.</span>
+                        [[${question.question}]]
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside>
+            <div th:replace="component/ask-question :: askquestion"></div>
+            <div th:replace="component/relative-question :: relativequestion"></div>
+            <!-- aside-1 -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3387666660240497"
+                data-ad-slot="7720750684" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+    </main>
+    <div th:replace="component/footer :: footer"></div>
+</body>
+<script src="/js/search.js"></script>
+
+</html>

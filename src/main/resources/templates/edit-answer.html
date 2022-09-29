@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Question</title>
+    <link rel="stylesheet" href="/css/editanswer.css">
+    <link rel="stylesheet" href="/css/editor.css">
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body>
+    <div th:replace="component/header :: header"></div>
+    <main>
+        <article>
+            <div class="cq-container">
+                <textarea rows="10" cols="78" class="question-display-block" th:text="${answerString}" readonly
+                    disabled></textarea>
+                <div class="qcc-answer-block">
+                    <textarea id="answer-input" cols="78" rows="10" class="question-input-block"
+                        th:text="${answerString}"></textarea>
+                    <div id="qab-block">
+                        <button class="save-btn" onclick="editAnswer()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside>
+        </aside>
+    </main>
+    <div th:replace="component/footer :: footer"></div>
+    <script defer src="/js/editorhandle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,600;1,200;1,400;1,600&display=swap');
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.logo {
+    height: 27px;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    width: 15vw;
+    justify-content: space-between;
+    padding-right: 5vw;
+    font-family: "Inter";
+}
+
+.header-nav-toggle {
+    display: none;
+}
+
+.header-nav span {
+    cursor: pointer;
+}
+
+.sign-up-block {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.sign-up-block img {
+    height: 18px;
+    padding-right: 8px;
+}
+
+.container {
+    margin-top: 8vh;
+}
+
+.section {
+    display: grid;
+    font-family: "Inter";
+    justify-items: center;
+    justify-content: center;
+}
+
+
+.section > span:nth-child(1) {
+    font-size: 45px;
+    font-family: "Special Elite";
+    padding: 5px 15px;
+}
+
+.section > span:nth-child(2) {
+    width: 15vw;
+    height: 3px;
+    background-color: black;
+    border-radius: 9px;
+    margin-bottom: 4vh;
+}
+
+.section-text {
+    font-family: "Work Sans";
+}
+
+.section input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 17px;
+    margin-bottom: 5vh;
+    font-family: "Work Sans";
+}
+
+.section form {
+    margin: 4vh;
+    display: grid;
+}
+
+.section form button {
+    border: none;
+    outline: none;
+    background-color: rgba(196, 196, 196, 0.3);
+    border-radius: 7px;
+    font-family: "Work Sans";
+    /* font-weight: lighter; */
+    padding: 14px;
+}
+
+.section form select {
+    border: none;
+    font-family: 'Work Sans';
+    font-weight: 100;
+    font-size: 17px;
+    outline: none;
+    margin-bottom: 24px;
+}
+
+@media screen and (max-width: 786px) {
+
+    .logo {
+        height: 5vw;
+    }
+
+    .section-text {
+        font-size: 3.5vw;
+    }
+
+    .header-nav[aria-hidden="false"] {
+        position: fixed;
+        inset: 0 0 0 30%;
+        gap: 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: auto;
+        background: rgba(235, 235, 235, 0.3);
+        backdrop-filter: blur(5px);
+        padding: 10vh 10vw;
+    }
+
+    .header-nav-toggle[aria-expanded="false"] {
+        display: block;
+        z-index: 1000;
+        border: none;
+        outline: none;
+        background: url('/images/menu.svg') no-repeat center center;
+    }
+
+    .header-nav-toggle[aria-expanded="true"] {
+        display: block;
+        border: none;
+        z-index: 1000;
+        background: url('/images/close.svg') no-repeat center center;
+    }
+
+    .header-nav[aria-hidden="true"] {
+        display: none;
+    }
+
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Come and Register yourself on Question Bucket, ask questions and clear all your doubts">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body>
+    <header>
+        <a href="/"><img class="logo" src="/images/logo.svg" alt="logo"></a>
+        <button class="header-nav-toggle" id="header-nav-toggle" aria-expanded="false"></button>
+        <div class="header-nav" id="header-nav" aria-hidden="true">
+            <span onclick="location.href='/'">HOME</span>
+            <div class="sign-up-block" onclick="location.href='/login'">
+                <img src="/images/right_arrow.png" alt="right-arrow">
+                LOGIN
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="section">
+            <span>Register</span>
+            <span></span>
+            <div class="section-text">Welcome! Register and access to the Questoin Bucket</div>
+            <form action="/register" method="post">
+                <input type="text" name="csrf" th:value="${csrf}" hidden />
+                <div>
+                    <input type="text" name="firstName" minlength="2" maxlength="26" min="2" max="26"
+                        placeholder="FIRST NAME" required>
+                    <input type="text" name="LastName" placeholder="LAST NAME" required>
+                </div>
+                <input type="text" name="email" placeholder="EMAIL" autocomplete="email"
+                    oninput="this.value = this.value.toLowerCase()" required>
+                <input type="password" name="password" id="password" placeholder="PASSWORD" required>
+                <input type="password" name="confirm-password" id="confirm-password" onblur="validatePassword()"
+                    placeholder="CONFIRM PASSWORD" required>
+                <select name="gender" id="" required>
+                    <option value="" disabled selected>GENDER</option>
+                    <option value="M">MALE</option>
+                    <option value="F">FEMALE</option>
+                </select>
+                <button type="submit" id="submit-btn">CONTINUE TO REGISTER</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script defer src="/js/register.js"></script>
+
+</html>

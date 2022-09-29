@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/css/createquestion.css">
+    <link rel="icon" href="/favicon.ico">
+</head>
+
+<body>
+    <div th:replace="component/header :: header"></div>
+    <main>
+        <article>
+            <textarea name="question" class="input-block" id="question-input" cols="30" rows="10" placeholder="Enter your Question Here..."></textarea>
+            <textarea name="answer" class="input-block" id="answer-input" cols="30" rows="10" placeholder="Enter your Answer Here..." hidden></textarea>
+            <div class="action-block">
+                <button class="btn add-answer" onclick="answerInputToggle()">Add Answer</button>
+                <button class="btn btn-save" onclick="saveQuestion()">Save</button>
+            </div>
+        </article>
+        <aside>
+            <select class="selct grade-select" name="grade" id="question-grade">
+                <option value="" selected disabled>Select Grade</option>
+                <option th:each="grade : ${grades}" th:value="${grade.id}" th:text="${grade.grade}"></option>
+            </select>
+            <select class="selct subject-select" name="subject" id="question-subject">
+                <option value="" selected disabled>Select Subject</option>
+                <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.subject}"></option>
+            </select>
+        </aside>
+    </main>
+    <div th:replace="component/footer :: footer"></div>
+    <script defer src="/js/editorhandle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${question.question}"></title>
+    <link rel="stylesheet" href="/css/question.css">
+    <link rel="stylesheet" href="/css/component/tags.css">
+    <link rel="icon" href="/favicon.ico">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3387666660240497"
+        crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6DYNGELR0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-R6DYNGELR0');
+    </script>
+</head>
+
+<body>
+    <div th:replace="component/header :: header" />
+    <main class="main-container">
+        <article>
+            <div class="question-block">
+                <div class="qb-question">
+                    <span>Ques. </span>
+                    [[${question.question}]]
+                </div>
+                <div class="question-about">
+                    <img src="/images/edit.png" class="edit-icon" alt="">
+                    <span sec:authorize="isAuthenticated()" onclick="modQuestion(this)">EDIT</span>
+                    <span sec:authorize="isAnonymous()" onclick="location.href='/login'">EDIT</span>
+                </div>
+            </div>
+            <div class="answers" id="answers" th:aria-rowcount="${answers.size()}">
+                <div class="answer" th:each="answer : ${answers}">
+                    <div class="answer-aside">
+                        <div class="answer-vote">
+                            <img src="/images/up-outlined.png" alt="vote">
+                            <span>0</span>
+                        </div>
+                        <span class="av-edit" th:id="'ans-' + ${answer.id}" onclick="modAnswer(this)">EDIT</span>
+                    </div>
+                    <span th:text="${answer.answer}" class="answer-block"></span>
+                </div>
+            </div>
+        </article>
+        <aside>
+            <div th:replace="component/tags :: tags"></div>
+            <div th:replace="component/ask-question :: askquestion"></div>
+            <div th:replace="component/relative-question :: relativequestion"></div>
+            <!-- aside-1 -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3387666660240497"
+                data-ad-slot="7720750684" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+    </main>
+    <div th:replace="component/footer :: footer"></div>
+</body>
+<script src="/js/question.js"></script>
+
+</html>
