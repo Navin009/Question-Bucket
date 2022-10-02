@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+
+import com.nrgroup.bucket.filter.SecurityAnnotationFilter;
 
 @Configuration
 @EnableReactiveMethodSecurity
@@ -24,6 +27,7 @@ public class SecurityConfiguration {
                 .httpBasic().disable()
                 .csrf().disable()
                 .formLogin().disable()
+                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .addFilterBefore(securityAnnotationFilter, SecurityWebFiltersOrder.FIRST);
         // @formatter:on
         return http.build();

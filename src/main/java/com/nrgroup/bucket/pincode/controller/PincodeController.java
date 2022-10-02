@@ -13,11 +13,13 @@ import com.nrgroup.bucket.config.SecurityRule;
 import com.nrgroup.bucket.pincode.model.AddressDetails;
 import com.nrgroup.bucket.pincode.service.PincodeService;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-@RequestMapping("/api")
+@Slf4j
 @RestController
+@RequestMapping("/api")
 public class PincodeController {
 
     @Autowired

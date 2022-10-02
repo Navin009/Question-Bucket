@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nrgroup.bucket.answer.model.request.CreateAnswerRequest;
@@ -32,6 +34,8 @@ import com.nrgroup.bucket.sitemap.SiteMapService;
 import com.nrgroup.bucket.tag.service.TagService;
 
 import jakarta.validation.Valid;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @RestController
 @RequestMapping("/api")
@@ -52,13 +56,15 @@ public class QuestionController {
 
     @PreAuthorize(SecurityRule.IS_ADMIN)
     @GetMapping("/v1/question/{question_id}")
-    public ResponseEntity<Question> getQuestion(@ModelAttribute("question_id") Long questionId) {
-        Optional<Question> question = questionService.getQuestionById(questionId);
-        if (question.isPresent()) {
-            return ResponseEntity.ok(question.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Mono<ResponseEntity<?>> getQuestion(@PathVariable("question_id") Long questionId) {
+        return Mono.fromCallable(() -> {
+            Optional<Question> question = questionService.getQuestionById(questionId);
+            if (question.isPresent()) {
+                return ResponseEntity.ok().body(question.get());
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }).subscribeOn(Schedulers.parallel());
     }
 
     @PostMapping("/v1/question/create")
@@ -88,8 +94,7 @@ public class QuestionController {
         return true;
     }
 
-    // TODO Change url to parameters
-    @GetMapping("/topquestions/vote")
+    @GetMapping("/v1/question/vote")
     public List<Question> topQuestions(Model model) {
         List<Question> topQuestions = questionService.getTopQuestionsByVote();
         return topQuestions;
@@ -111,23 +116,26 @@ public class QuestionController {
         }
     }
 
-    // TODO Change path variable to params
-    @GetMapping("/relatedquestions/{questionId}")
-    public List<Question> getRelatedQuestions(@ModelAttribute("questionId") Long questionId) {
+    @GetMapping("/v1/question/related")
+    public List<Question> getRelatedQuestions(@RequestParam("question-id") Long questionId) {
         List<Question> relatedQuestions = questionService.getRelatedQuestions(questionId);
         return relatedQuestions;
     }
 
     @GetMapping("/v1/question/trending")
-    public List<Question> getTrendingQuestions() {
-        List<Question> trendingQuestions = questionService.getTrendingQuestions();
-        return trendingQuestions;
+    public Mono<List<Question>> getTrendingQuestions() {
+        return Mono.fromCallable(() -> {
+            List<Question> trendingQuestions = questionService.getTrendingQuestions();
+            return trendingQuestions;
+        }).subscribeOn(Schedulers.parallel());
     }
 
     @DeleteMapping(value = "/v1/question/delete", params = "questionId")
-    public ResponseEntity<?> deleteQuestion(@ModelAttribute("questionId") Long questionId) {
-        HttpStatus questionDeleteStatus = questionService.deleteQuestion(questionId);
-        return ResponseEntity.status(questionDeleteStatus).build();
+    public Mono<ResponseEntity<Object>> deleteQuestion(@ModelAttribute("questionId") Long questionId) {
+        return Mono.fromCallable(() -> {
+            HttpStatus status = questionService.deleteQuestion(questionId);
+            return ResponseEntity.status(status).build();
+        }).subscribeOn(Schedulers.parallel());
     }
 
 }

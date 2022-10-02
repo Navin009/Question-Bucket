@@ -25,14 +25,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+    // @Autowired
+    // private AuthenticationProvider authenticationProvider;
 
     public Authentication validateUser(String username, String password) throws AuthenticationException {
-        Authentication authentication = authenticationProvider
-                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return authentication;
+        // Authentication authentication = authenticationProvider
+        // .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        // SecurityContextHolder.getContext().setAuthentication(authentication);
+        // return authentication;
+        return null;
     }
 
     public String registerUser(RegisterRequest registerRequest) {

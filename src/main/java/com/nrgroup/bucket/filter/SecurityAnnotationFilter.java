@@ -1,4 +1,4 @@
-package com.nrgroup.bucket.security;
+package com.nrgroup.bucket.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +17,22 @@ public class SecurityAnnotationFilter implements WebFilter {
 
     @Autowired
     RequestMappingHandlerMapping handlerMapping;
-    
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        HandlerMethod handlerMethod = (HandlerMethod) this.handlerMapping.getHandler(exchange).share().block();
-        
-        PreAuthorize classAnnotation = handlerMethod.getMethod().getDeclaringClass().getAnnotation(PreAuthorize.class);
+        HandlerMethod handlerMethod = this.handlerMapping.getHandler(exchange)
+                .cast(HandlerMethod.class).share().block();
+
+        if (handlerMethod == null)
+            return chain.filter(exchange);
+
         PreAuthorize methodAnnotation = handlerMethod.getMethodAnnotation(PreAuthorize.class);
+        PreAuthorize classAnnotation = handlerMethod.getMethod().getDeclaringClass()
+                .getAnnotation(PreAuthorize.class);
         if (classAnnotation != null || methodAnnotation != null) {
             return chain.filter(exchange);
         }
+
         exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
         return Mono.empty();
     }

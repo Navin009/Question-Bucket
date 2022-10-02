@@ -1,15 +1,12 @@
 package com.nrgroup.bucket.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.nrgroup.bucket.config.SecurityRule;
 import com.nrgroup.bucket.user.service.UserService;
@@ -32,33 +29,34 @@ public class UserController {
 
     @PreAuthorize(SecurityRule.PERMIT_ALL)
     @PostMapping("/v1/password/update")
-    public ResponseEntity<?> updateUserPassword(@ModelAttribute("password") String password, HttpSession session) {
-        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath("/login");
-        HttpHeaders header = new HttpHeaders();
-        try {
-            String isUserVarified = session.getAttribute("user").toString();
-            if (isUserVarified.equals("verified")) {
-                boolean isPasswordUpdated = userService.updatePassword(session.getAttribute("email").toString(),
-                        password);
-                if (isPasswordUpdated) {
-                    uriComponentsBuilder.queryParam("error", "Password Updated Successfully!");
-                    header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
-                } else {
-                    uriComponentsBuilder.queryParam("error", "Error in Updating password");
-                    header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
-                }
-                return ResponseEntity.status(HttpStatus.FOUND)
-                        .headers(header)
-                        .build();
-            }
-        } catch (Exception e) {
-            log.error("Exception in UserController updateUserPassword", e);
-        }
-        uriComponentsBuilder.queryParam("error", "Request is not Valid!");
-        header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .headers(header)
-                .build();
+    public ResponseEntity<?> updateUserPassword(@ModelAttribute("password") String password) {
+        // UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath("/login");
+        // HttpHeaders header = new HttpHeaders();
+        // try {
+        //     String isUserVarified = session.getAttribute("user").toString();
+        //     if (isUserVarified.equals("verified")) {
+        //         boolean isPasswordUpdated = userService.updatePassword(session.getAttribute("email").toString(),
+        //                 password);
+        //         if (isPasswordUpdated) {
+        //             uriComponentsBuilder.queryParam("error", "Password Updated Successfully!");
+        //             header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
+        //         } else {
+        //             uriComponentsBuilder.queryParam("error", "Error in Updating password");
+        //             header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
+        //         }
+        //         return ResponseEntity.status(HttpStatus.FOUND)
+        //                 .headers(header)
+        //                 .build();
+        //     }
+        // } catch (Exception e) {
+        //     log.error("Exception in UserController updateUserPassword", e);
+        // }
+        // uriComponentsBuilder.queryParam("error", "Request is not Valid!");
+        // header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
+        // return ResponseEntity.status(HttpStatus.FOUND)
+        //         .headers(header)
+        //         .build();
+        return null;
     }
 
     // @PostMapping("/login")

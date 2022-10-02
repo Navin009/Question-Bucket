@@ -40,6 +40,9 @@ jwt:
     secret: ${JWT_SECRET:jwtsecret}
     expiration: ${JWT_EXPIRATION:10800} #0 seconds 60*60*24 = (86400s) 1 day, default is 10800s (3 hours)
 
+csrf:
+    secret: ${CSRF_SECRET:csrfsecret}
+
 log:
     file-path: ${LOG_PATH:../logs}
 
