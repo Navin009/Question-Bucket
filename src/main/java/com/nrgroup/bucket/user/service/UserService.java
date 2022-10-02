@@ -2,19 +2,14 @@ package com.nrgroup.bucket.user.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.nrgroup.bucket.entity.User;
 import com.nrgroup.bucket.entity.enumeration.Role;
 import com.nrgroup.bucket.user.model.request.RegisterRequest;
 import com.nrgroup.bucket.user.repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,12 +23,12 @@ public class UserService {
     // @Autowired
     // private AuthenticationProvider authenticationProvider;
 
-    public Authentication validateUser(String username, String password) throws AuthenticationException {
+    public User findUser(String username) {
         // Authentication authentication = authenticationProvider
         // .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         // SecurityContextHolder.getContext().setAuthentication(authentication);
         // return authentication;
-        return null;
+        return new User("11234567", "navin", "$2a$10$lTOqdpbfVzu6IfNOZoXG8.xE6qDkwM6jNuw8naeygXSP61M6sPwQO", Role.USER);
     }
 
     public String registerUser(RegisterRequest registerRequest) {

@@ -1,4 +1,4 @@
-package com.nrgroup.bucket.security;
+package com.nrgroup.bucket.utils;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.security.MessageDigest;
@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.nrgroup.bucket.entity.User;

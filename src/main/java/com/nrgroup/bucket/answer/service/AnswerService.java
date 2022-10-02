@@ -16,7 +16,7 @@ import com.nrgroup.bucket.entity.Answer;
 import com.nrgroup.bucket.entity.AnswerUpdate;
 import com.nrgroup.bucket.entity.User;
 import com.nrgroup.bucket.question.repository.QuestionRepository;
-import com.nrgroup.bucket.security.SecurityUtils;
+import com.nrgroup.bucket.utils.SecurityUtils;
 
 @Service
 public class AnswerService {

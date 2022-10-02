@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.nrgroup.bucket.config.SecurityRule;
 import com.nrgroup.bucket.email.service.EmailService;
 import com.nrgroup.bucket.otp.service.OTPService;
-import com.nrgroup.bucket.security.SecurityUtils;
 import com.nrgroup.bucket.user.model.request.ForgotRequest;
 import com.nrgroup.bucket.user.model.request.RegisterRequest;
 import com.nrgroup.bucket.user.service.UserService;
+import com.nrgroup.bucket.utils.SecurityUtils;
 
 import reactor.core.publisher.Mono;
 
 @Controller
-@PreAuthorize(SecurityRule.IS_ANONYMOUS)
+@PreAuthorize(SecurityRule.ANONYMOUS)
 public class UserViewController {
 
     @Autowired

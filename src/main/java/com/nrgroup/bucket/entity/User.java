@@ -47,4 +47,11 @@ public class User {
         this.gender = gender;
     }
 
+    public User(String userNo, String email, String password,Role role) {
+        this.userNo = userNo;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
 }

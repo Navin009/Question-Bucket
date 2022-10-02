@@ -39,7 +39,7 @@ import reactor.core.scheduler.Schedulers;
 
 @RestController
 @RequestMapping("/api")
-@PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+@PreAuthorize(SecurityRule.AUTHENTICATED)
 public class QuestionController {
 
     @Autowired
@@ -54,7 +54,7 @@ public class QuestionController {
     @Autowired
     private TagService tagService;
 
-    @PreAuthorize(SecurityRule.IS_ADMIN)
+    @PreAuthorize(SecurityRule.ROLE_ADMIN)
     @GetMapping("/v1/question/{question_id}")
     public Mono<ResponseEntity<?>> getQuestion(@PathVariable("question_id") Long questionId) {
         return Mono.fromCallable(() -> {

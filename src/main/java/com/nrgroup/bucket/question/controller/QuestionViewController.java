@@ -55,7 +55,7 @@ public class QuestionViewController {
     }
 
     @GetMapping("/create-question-answer")
-    @PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+    @PreAuthorize(SecurityRule.AUTHENTICATED)
     public String createQuestion(Model model) {
         List<Grade> grades = questionService.getGradeList();
         List<Subject> subjects = questionService.getSubjectList();
@@ -65,14 +65,14 @@ public class QuestionViewController {
     }
 
     @GetMapping("/edit-question/{question_id}")
-    @PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+    @PreAuthorize(SecurityRule.AUTHENTICATED)
     public String editQuestion(@PathVariable("question_id") Long questionId, Model model) {
         String questionString = questionService.getQuestionString(questionId);
         model.addAttribute("questionString", questionString);
         return "edit-question";
     }
 
-    @PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+    @PreAuthorize(SecurityRule.AUTHENTICATED)
     @GetMapping("/question/{question_id}/create-answer")
     public String createQuestionAnswer(@PathVariable("question_id") Long questionId) {
         return "create-answer";

@@ -17,14 +17,14 @@ import com.nrgroup.bucket.answer.model.request.AnswerUpdateRequest;
 import com.nrgroup.bucket.answer.model.request.CreateAnswerRequest;
 import com.nrgroup.bucket.answer.service.AnswerService;
 import com.nrgroup.bucket.config.SecurityRule;
-import com.nrgroup.bucket.exception.ErrorResponse;
+import com.nrgroup.bucket.exception.ServerMessage;
 import com.nrgroup.bucket.question.service.QuestionSerivce;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
-@PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+@PreAuthorize(SecurityRule.AUTHENTICATED)
 public class AnswerController {
 
     @Autowired
@@ -36,17 +36,17 @@ public class AnswerController {
     @PostMapping("/v1/answer/create")
     public ResponseEntity<?> createAnswer(@RequestBody CreateAnswerRequest newRequest) {
         Integer questionAnswersCount = questionService.getQuestionAnswersCount(newRequest.getQuestionId());
-        ErrorResponse errorResponse = new ErrorResponse();
+        ServerMessage serverMessage;
         if (questionAnswersCount == -1) {
-            errorResponse.setError("Question not found");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+            serverMessage = new ServerMessage("Question not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(serverMessage);
         }
         if (questionAnswersCount < 3) {
             Long answerId = answerService.createAnswer(newRequest, questionAnswersCount);
             return ResponseEntity.ok(Collections.singletonMap("answerId", answerId));
         } else {
-            errorResponse.setError("Question Reached Max Answers");
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(errorResponse);
+            serverMessage = new ServerMessage("Question Reached Max Answers");
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(serverMessage);
         }
     }
 

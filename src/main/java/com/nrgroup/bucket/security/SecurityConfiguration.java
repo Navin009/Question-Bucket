@@ -1,11 +1,13 @@
 package com.nrgroup.bucket.security;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 
@@ -18,6 +20,12 @@ public class SecurityConfiguration {
     @Autowired
     SecurityAnnotationFilter securityAnnotationFilter;
 
+    @Autowired
+    SecurityContextRepository securityContextRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         // @formatter:off
@@ -27,7 +35,8 @@ public class SecurityConfiguration {
                 .httpBasic().disable()
                 .csrf().disable()
                 .formLogin().disable()
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+                .securityContextRepository(securityContextRepository)
+                .authenticationManager(authenticationManager)
                 .addFilterBefore(securityAnnotationFilter, SecurityWebFiltersOrder.FIRST);
         // @formatter:on
         return http.build();

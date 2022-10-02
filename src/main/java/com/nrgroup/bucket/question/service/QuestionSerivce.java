@@ -16,7 +16,7 @@ import com.nrgroup.bucket.entity.Subject;
 import com.nrgroup.bucket.entity.User;
 import com.nrgroup.bucket.question.repository.QuestionRepository;
 import com.nrgroup.bucket.question.repository.QuestionUpdateRepository;
-import com.nrgroup.bucket.security.SecurityUtils;
+import com.nrgroup.bucket.utils.SecurityUtils;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -11,7 +11,7 @@ import com.nrgroup.bucket.answer.service.AnswerService;
 import com.nrgroup.bucket.config.SecurityRule;
 
 @Controller
-@PreAuthorize(SecurityRule.IS_AUTHENTICATED)
+@PreAuthorize(SecurityRule.AUTHENTICATED)
 public class AnswerViewController {
 
     @Autowired

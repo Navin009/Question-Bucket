@@ -1,17 +1,29 @@
 package com.nrgroup.bucket.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nrgroup.bucket.config.SecurityRule;
+import com.nrgroup.bucket.entity.User;
+import com.nrgroup.bucket.enums.Status;
+import com.nrgroup.bucket.exception.ServerMessage;
+import com.nrgroup.bucket.security.BCryptEncoder;
+import com.nrgroup.bucket.user.model.request.LoginRequest;
 import com.nrgroup.bucket.user.service.UserService;
+import com.nrgroup.bucket.utils.JwtUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RestController
@@ -24,78 +36,86 @@ public class UserController {
     // @Autowired
     // private OTPService otpService;
 
-    // @Autowired
-    // private JWTUtils jwtUtils;
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private BCryptEncoder bCryptEncoder;
+
+    @Value("${server.cookie.name}")
+    String cookieName;
 
     @PreAuthorize(SecurityRule.PERMIT_ALL)
     @PostMapping("/v1/password/update")
     public ResponseEntity<?> updateUserPassword(@ModelAttribute("password") String password) {
-        // UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath("/login");
+        // UriComponentsBuilder uriComponentsBuilder =
+        // UriComponentsBuilder.fromPath("/login");
         // HttpHeaders header = new HttpHeaders();
         // try {
-        //     String isUserVarified = session.getAttribute("user").toString();
-        //     if (isUserVarified.equals("verified")) {
-        //         boolean isPasswordUpdated = userService.updatePassword(session.getAttribute("email").toString(),
-        //                 password);
-        //         if (isPasswordUpdated) {
-        //             uriComponentsBuilder.queryParam("error", "Password Updated Successfully!");
-        //             header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
-        //         } else {
-        //             uriComponentsBuilder.queryParam("error", "Error in Updating password");
-        //             header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
-        //         }
-        //         return ResponseEntity.status(HttpStatus.FOUND)
-        //                 .headers(header)
-        //                 .build();
-        //     }
+        // String isUserVarified = session.getAttribute("user").toString();
+        // if (isUserVarified.equals("verified")) {
+        // boolean isPasswordUpdated =
+        // userService.updatePassword(session.getAttribute("email").toString(),
+        // password);
+        // if (isPasswordUpdated) {
+        // uriComponentsBuilder.queryParam("error", "Password Updated Successfully!");
+        // header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
+        // } else {
+        // uriComponentsBuilder.queryParam("error", "Error in Updating password");
+        // header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
+        // }
+        // return ResponseEntity.status(HttpStatus.FOUND)
+        // .headers(header)
+        // .build();
+        // }
         // } catch (Exception e) {
-        //     log.error("Exception in UserController updateUserPassword", e);
+        // log.error("Exception in UserController updateUserPassword", e);
         // }
         // uriComponentsBuilder.queryParam("error", "Request is not Valid!");
         // header.add(HttpHeaders.LOCATION, uriComponentsBuilder.build().toUriString());
         // return ResponseEntity.status(HttpStatus.FOUND)
-        //         .headers(header)
-        //         .build();
+        // .headers(header)
+        // .build();
         return null;
     }
 
-    // @PostMapping("/login")
-    // public ResponseEntity<?> login(@ModelAttribute LoginRequest loginRequest,
-    // HttpServletResponse response) {
-    // ErrorResponse errorResponse = new ErrorResponse();
+    @PostMapping("/login")
+    @PreAuthorize(SecurityRule.ANONYMOUS)
+    public Mono<ResponseEntity<ServerMessage>> login(@RequestBody LoginRequest request) {
+        return Mono.fromCallable(() -> {
+            ServerMessage message;
+            if (request.getEmail() == null) {
+                message = new ServerMessage("Email is not empty!", Status.FIELD_REQUIRED);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+            }
+            if (request.getPassword() == null) {
+                message = new ServerMessage("Password is not empty!", Status.FIELD_REQUIRED);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+            }
+            User user = userService.findUser(request.getEmail());
+            if (user != null) {
+                String encodedPassword = bCryptEncoder.encode(request.getPassword());
+                Boolean isMatched = bCryptEncoder.matches(request.getPassword(), encodedPassword);
+                if (isMatched) {
+                    String token = jwtUtils.generateToken(user);
+                    ResponseCookie cookie = ResponseCookie.from(cookieName, token)
+                            .secure(true)
+                            .httpOnly(true)
+                            .sameSite("strict")
+                            .path("/")
+                            .build();
 
-    // if (loginRequest.getEmail().isBlank() ||
-    // loginRequest.getPassword().isBlank()) {
-    // errorResponse.setError("Username and password are required");
-    // URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-    // .path("/login")
-    // .queryParam("error", errorResponse.getError()).build().toUri();
-    // return ResponseEntity.status(HttpStatus.FOUND).location(uri).build();
-    // }
-
-    // try {
-    // Authentication authentication =
-    // userService.validateUser(loginRequest.getEmail(),
-    // loginRequest.getPassword());
-    // String token = jwtUtils.generateJWT(authentication);
-    // LoginResponse loginResponse = new LoginResponse();
-    // loginResponse.setUsername(loginRequest.getEmail());
-    // loginResponse.setToken(token);
-    // Cookie cookie = new Cookie("0Auth", token);
-    // cookie.setHttpOnly(true);
-    // cookie.setPath("/");
-    // response.addCookie(cookie);
-    // URI uri =
-    // ServletUriComponentsBuilder.fromCurrentContextPath().path("/").build().toUri();
-    // return ResponseEntity.status(HttpStatus.FOUND).location(uri).build();
-    // } catch (Exception e) {
-    // errorResponse.setError("Invalid username or password");
-    // URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-    // .path("/login")
-    // .queryParam("error", errorResponse.getError()).build().toUri();
-    // return ResponseEntity.status(HttpStatus.FOUND).location(uri).build(); }
-
-    // }
+                    message = new ServerMessage("Login Success", Status.SUCCESS);
+                    return ResponseEntity.ok().header("Set-Cookie", cookie.toString()).body(message);
+                } else {
+                    message = new ServerMessage("Invalid Credentials!", Status.UNAUTHENTICATED);
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(message);
+                }
+            }
+            message = new ServerMessage("User not Found!", Status.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }).subscribeOn(Schedulers.parallel());
+    }
 
     // @PostMapping("/register")
     // public ResponseEntity<?> register(@ModelAttribute @Validated RegisterRequest

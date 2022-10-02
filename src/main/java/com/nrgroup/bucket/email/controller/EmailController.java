@@ -28,7 +28,7 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping("/v1/email/create-template")
-    @PreAuthorize(SecurityRule.IS_ADMIN)
+    @PreAuthorize(SecurityRule.ROLE_ADMIN)
     public ResponseEntity<?> createTemplate(@ModelAttribute @Valid EmailTemplateRequest request) {
         EmailTemplateResponse response = emailService.createTemplate(request);
         if (response.getResponseCode() != HttpStatus.OK) {
@@ -38,14 +38,14 @@ public class EmailController {
     }
 
     @PutMapping("/v1/email/update-template")
-    @PreAuthorize(SecurityRule.IS_ADMIN)
+    @PreAuthorize(SecurityRule.ROLE_ADMIN)
     public ResponseEntity<?> updateTemplate(@ModelAttribute @Valid EmailTemplateRequest request) {
         EmailTemplateResponse response = emailService.updateTemplate(request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/v1/email/delete-template")
-    @PreAuthorize(SecurityRule.IS_ADMIN)
+    @PreAuthorize(SecurityRule.ROLE_ADMIN)
     public ResponseEntity<?> deleteTemplate(@ModelAttribute("templateName") @NotBlank String deleteTemplateName) {
         EmailTemplateResponse response = emailService.deleteTemplate(deleteTemplateName);
         if (response.getResponseCode() != HttpStatus.OK) {
@@ -55,7 +55,7 @@ public class EmailController {
     }
 
     @GetMapping("/v1/email/list-template")
-    @PreAuthorize(SecurityRule.IS_ADMIN)
+    @PreAuthorize(SecurityRule.ROLE_ADMIN)
     public ResponseEntity<?> listTemplates() {
         EmailTemplateResponse response = emailService.listTemplates();
         if (response.getResponseCode() != HttpStatus.OK) {

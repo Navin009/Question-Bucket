@@ -13,12 +13,10 @@ datasource:
 
 server:
     port: ${SERVER_PORT:8080}
-    servlet:
-        session:
-            cookie:
-                name: csid
-                secure: true
-                same-site: strict
+    cookie:
+        name: auth
+        secure: true
+        same-site: strict
 
 mail:
     host: ${AWS_SES_HOST:email-smtp.ap-south-1.amazonaws.com}
@@ -37,7 +35,7 @@ mail:
         answer-update: answer_update_template
 
 jwt:
-    secret: ${JWT_SECRET:jwtsecret}
+    secret: ${JWT_SECRET:jwtsecret11111111efdhgjhbkjnjhjkfgh}
     expiration: ${JWT_EXPIRATION:10800} #0 seconds 60*60*24 = (86400s) 1 day, default is 10800s (3 hours)
 
 csrf:
