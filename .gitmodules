@@ -1,0 +1,3 @@
+[submodule "bucket-db"]
+	path = bucket-db
+	url = https://gitlab.com/nrgroup/question-bucket/bucket-db.git
