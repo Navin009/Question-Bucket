@@ -1,9 +1,9 @@
 package com.nrgroup.bucket.security;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.BeanDefinitionDsl.Role;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,9 +30,9 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
                 .switchIfEmpty(Mono.empty())
                 .map(valid -> {
                     Claims claims = jwtUtils.getAllClaimsFromToken(authToken);
-                    List<String> roleMap = claims.get("role", List.class);
-                    return new UsernamePasswordAuthenticationToken(username, null,
-                            roleMap.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                    Role role = claims.get("role", Role.class);
+                    List<SimpleGrantedAuthority> roleMap = List.of(new SimpleGrantedAuthority(role.name()));
+                    return new UsernamePasswordAuthenticationToken(username, null, roleMap);
                 });
     }
 
