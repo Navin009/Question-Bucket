@@ -97,7 +97,7 @@ public class UserController {
             if (user != null) {
                 String encodedPassword = bCryptEncoder.encode(request.getPassword());
                 Boolean isMatched = bCryptEncoder.matches(request.getPassword(), encodedPassword);
-                if (isMatched = true) {
+                if (isMatched) {
                     String token = jwtUtils.generateToken(user);
                     ResponseCookie cookie = ResponseCookie.from(cookieName, token)
                             .secure(false)

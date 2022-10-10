@@ -1,6 +1,5 @@
 package com.nrgroup.bucket.filter;
 
-import java.security.Principal;
 import java.util.Map;
 
 import org.slf4j.MDC;
