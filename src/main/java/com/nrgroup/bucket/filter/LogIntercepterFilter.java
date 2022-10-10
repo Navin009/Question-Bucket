@@ -37,13 +37,15 @@ public class LogIntercepterFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        System.out.println("LogIntercepterFilter filter");
         Principal principal = exchange.getPrincipal().cast(Principal.class).share().block();
+       
         if (principal != null)
-            MDC.put("User", principal.getName());
+            MDC.put("User", principal.toString());
 
         return chain.filter(exchange).doFinally((signal) -> {
             if (principal != null)
-                MDC.put("User", principal.getName());
+                MDC.put("User", principal.toString());
             log.info("{} {} - {}", exchange.getRequest().getMethod(), exchange.getRequest().getPath(),
                     exchange.getResponse().getStatusCode());
         });

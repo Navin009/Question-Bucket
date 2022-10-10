@@ -3,7 +3,6 @@ package com.nrgroup.bucket.security;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.BeanDefinitionDsl.Role;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,17 +22,17 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
+        System.out.println("AuthenticationManager authenticate");
         String authToken = authentication.getCredentials().toString();
         String username = jwtUtils.getUsernameFromToken(authToken);
-        return Mono.just(jwtUtils.validateToken(authToken))
-                .filter(valid -> valid)
-                .switchIfEmpty(Mono.empty())
-                .map(valid -> {
-                    Claims claims = jwtUtils.getAllClaimsFromToken(authToken);
-                    Role role = claims.get("role", Role.class);
-                    List<SimpleGrantedAuthority> roleMap = List.of(new SimpleGrantedAuthority(role.name()));
-                    return new UsernamePasswordAuthenticationToken(username, null, roleMap);
-                });
+        Boolean validate = jwtUtils.validateToken(authToken);
+        if (validate) {
+            Claims claims = jwtUtils.getAllClaimsFromToken(authToken);
+            String role = claims.get("role", String.class);
+            List<SimpleGrantedAuthority> roleMap = List.of(new SimpleGrantedAuthority(role));
+            return Mono.just(new UsernamePasswordAuthenticationToken(username, null, roleMap));
+        }
+        return Mono.empty();
     }
 
 }

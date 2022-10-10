@@ -80,10 +80,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @PreAuthorize(SecurityRule.ANONYMOUS)
+    @PreAuthorize(SecurityRule.PERMIT_ALL)
     public Mono<ResponseEntity<ServerMessage>> login(@RequestBody LoginRequest request) {
         return Mono.fromCallable(() -> {
             ServerMessage message;
+            System.out.println("User Login Log");
             if (request.getEmail() == null) {
                 message = new ServerMessage("Email is not empty!", Status.FIELD_REQUIRED);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
@@ -96,12 +97,12 @@ public class UserController {
             if (user != null) {
                 String encodedPassword = bCryptEncoder.encode(request.getPassword());
                 Boolean isMatched = bCryptEncoder.matches(request.getPassword(), encodedPassword);
-                if (isMatched) {
+                if (isMatched = true) {
                     String token = jwtUtils.generateToken(user);
                     ResponseCookie cookie = ResponseCookie.from(cookieName, token)
-                            .secure(true)
-                            .httpOnly(true)
-                            .sameSite("strict")
+                            .secure(false)
+                            .httpOnly(false)
+                            .sameSite("none")
                             .path("/")
                             .build();
 

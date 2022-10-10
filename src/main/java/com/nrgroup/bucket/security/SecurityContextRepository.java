@@ -1,6 +1,7 @@
 package com.nrgroup.bucket.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,13 +25,14 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 
     @Override
     public Mono<SecurityContext> load(ServerWebExchange exchange) {
-        return Mono.justOrEmpty(exchange.getRequest().getCookies().get("csid"))
-                .map(token -> token.get(0))
-                .flatMap(token -> {
-                    String authToken = token.getValue();
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(authToken, authToken);
-                    return authenticationManager.authenticate(authentication).map(SecurityContextImpl::new);
-                });
+        System.out.println("SecurityContextRepository load");
+        HttpCookie cookie = exchange.getRequest().getCookies().getFirst("auth");
+        if (cookie != null) {
+            String authToken = cookie.getValue();
+            Authentication authentication = new UsernamePasswordAuthenticationToken(authToken, authToken);
+            return authenticationManager.authenticate(authentication).map(SecurityContextImpl::new);
+        }
+        return Mono.empty();
     }
 
 }

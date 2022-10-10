@@ -1,6 +1,8 @@
 package com.nrgroup.bucket.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SecurityAnnotationFilter implements WebFilter {
 
     @Autowired
@@ -20,8 +23,10 @@ public class SecurityAnnotationFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        System.out.println("SecurityAnnotationFilter filter");
         HandlerMethod handlerMethod = this.handlerMapping.getHandler(exchange)
-                .cast(HandlerMethod.class).share().block();
+                .cast(HandlerMethod.class)
+                .share().block();
 
         if (handlerMethod == null)
             return chain.filter(exchange);
