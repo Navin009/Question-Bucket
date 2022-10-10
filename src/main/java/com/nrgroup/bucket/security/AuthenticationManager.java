@@ -29,7 +29,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
         if (validate) {
             Claims claims = jwtUtils.getAllClaimsFromToken(authToken);
             String role = claims.get("role", String.class);
-            List<SimpleGrantedAuthority> roleMap = List.of(new SimpleGrantedAuthority("ROLE_" + role));
+            List<SimpleGrantedAuthority> roleMap = List.of(new SimpleGrantedAuthority(role));
             MDC.put("User", username);
             return Mono.just(new UsernamePasswordAuthenticationToken(username, null, roleMap));
         }
