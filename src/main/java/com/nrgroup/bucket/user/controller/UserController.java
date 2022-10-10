@@ -1,5 +1,7 @@
 package com.nrgroup.bucket.user.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -81,7 +83,7 @@ public class UserController {
 
     @PostMapping("/login")
     @PreAuthorize(SecurityRule.PERMIT_ALL)
-    public Mono<ResponseEntity<ServerMessage>> login(@RequestBody LoginRequest request) {
+    public Mono<ResponseEntity<ServerMessage>> login(@RequestBody LoginRequest request, Principal p) {
         return Mono.fromCallable(() -> {
             ServerMessage message;
             log.info("Login function log");
