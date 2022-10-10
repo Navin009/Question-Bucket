@@ -23,7 +23,7 @@ public class UserService {
     // @Autowired
     // private AuthenticationProvider authenticationProvider;
 
-    public User findUser(String username) {
+    public User findUser(String email) {
         // Authentication authentication = authenticationProvider
         // .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         // SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -1,6 +1,7 @@
 package com.nrgroup.bucket.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,9 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Value("${server.cookie.name}")
+    private String cookieName;
+
     @Override
     public Mono<Void> save(ServerWebExchange exchange, SecurityContext context) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -25,8 +29,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 
     @Override
     public Mono<SecurityContext> load(ServerWebExchange exchange) {
-        System.out.println("SecurityContextRepository load");
-        HttpCookie cookie = exchange.getRequest().getCookies().getFirst("auth");
+        HttpCookie cookie = exchange.getRequest().getCookies().getFirst(cookieName);
         if (cookie != null) {
             String authToken = cookie.getValue();
             Authentication authentication = new UsernamePasswordAuthenticationToken(authToken, authToken);

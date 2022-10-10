@@ -23,7 +23,6 @@ public class SecurityAnnotationFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        System.out.println("SecurityAnnotationFilter filter");
         HandlerMethod handlerMethod = this.handlerMapping.getHandler(exchange)
                 .cast(HandlerMethod.class)
                 .share().block();

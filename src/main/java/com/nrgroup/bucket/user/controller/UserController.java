@@ -84,7 +84,7 @@ public class UserController {
     public Mono<ResponseEntity<ServerMessage>> login(@RequestBody LoginRequest request) {
         return Mono.fromCallable(() -> {
             ServerMessage message;
-            System.out.println("User Login Log");
+            log.info("Login function log");
             if (request.getEmail() == null) {
                 message = new ServerMessage("Email is not empty!", Status.FIELD_REQUIRED);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
@@ -101,8 +101,8 @@ public class UserController {
                     String token = jwtUtils.generateToken(user);
                     ResponseCookie cookie = ResponseCookie.from(cookieName, token)
                             .secure(false)
-                            .httpOnly(false)
-                            .sameSite("none")
+                            .httpOnly(true)
+                            .sameSite("strict")
                             .path("/")
                             .build();
 
