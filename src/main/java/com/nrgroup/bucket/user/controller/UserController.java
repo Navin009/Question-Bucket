@@ -1,7 +1,6 @@
 package com.nrgroup.bucket.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nrgroup.bucket.config.SecurityRule;
+import com.nrgroup.bucket.config.ServerCookie;
 import com.nrgroup.bucket.entity.User;
 import com.nrgroup.bucket.enums.Status;
 import com.nrgroup.bucket.exception.ServerMessage;
@@ -42,8 +42,8 @@ public class UserController {
     @Autowired
     private BCryptEncoder bCryptEncoder;
 
-    @Value("${server.cookie.name}")
-    String cookieName;
+    @Autowired
+    private ServerCookie serverCookie;
 
     @PreAuthorize(SecurityRule.PERMIT_ALL)
     @PostMapping("/v1/password/update")
@@ -99,11 +99,11 @@ public class UserController {
                 Boolean isMatched = bCryptEncoder.matches(request.getPassword(), encodedPassword);
                 if (isMatched) {
                     String token = jwtUtils.generateToken(user);
-                    ResponseCookie cookie = ResponseCookie.from(cookieName, token)
-                            .secure(false)
-                            .httpOnly(true)
-                            .sameSite("strict")
-                            .path("/")
+                    ResponseCookie cookie = ResponseCookie.from(serverCookie.getName(), token)
+                            .secure(serverCookie.getSecure())
+                            .httpOnly(serverCookie.getHttpOnly())
+                            .sameSite(serverCookie.getSameSite())
+                            .path(serverCookie.getPath())
                             .build();
 
                     message = new ServerMessage("Login Success", Status.SUCCESS);

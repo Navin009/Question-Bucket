@@ -14,9 +14,11 @@ datasource:
 server:
     port: ${SERVER_PORT:8080}
     cookie:
-        name: auth
-        secure: true
-        same-site: strict
+        name: ${SERVER_COOKIE_NAME:auth}
+        path: ${SERVER_COOKIE_PATH:/}
+        secure: ${SERVER_COOKIE_SECURE:false}
+        same-site: ${SERVER_COOKIE_SAME_SITE:strict}
+        http-only: ${SERVER_COOKIE_HTTP_ONLY:true}
 
 mail:
     host: ${AWS_SES_HOST:email-smtp.ap-south-1.amazonaws.com}
