@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
-import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+
+import com.nrgroup.bucket.filter.SecurityAnnotationFilter;
 
 @Configuration
 @EnableReactiveMethodSecurity
@@ -14,6 +15,12 @@ public class SecurityConfiguration {
 
     @Autowired
     SecurityAnnotationFilter securityAnnotationFilter;
+
+    @Autowired
+    SecurityContextRepository securityContextRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -24,7 +31,8 @@ public class SecurityConfiguration {
                 .httpBasic().disable()
                 .csrf().disable()
                 .formLogin().disable()
-                .addFilterBefore(securityAnnotationFilter, SecurityWebFiltersOrder.FIRST);
+                .securityContextRepository(securityContextRepository)
+                .authenticationManager(authenticationManager);
         // @formatter:on
         return http.build();
     }

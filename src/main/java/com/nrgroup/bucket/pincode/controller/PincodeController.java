@@ -16,8 +16,8 @@ import com.nrgroup.bucket.pincode.service.PincodeService;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-@RequestMapping("/api")
 @RestController
+@RequestMapping("/api")
 public class PincodeController {
 
     @Autowired
